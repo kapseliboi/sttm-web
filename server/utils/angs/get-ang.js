@@ -1,1 +1,0 @@
-export const getAng = req => req.query.ang;

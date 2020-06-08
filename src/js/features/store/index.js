@@ -9,7 +9,6 @@ import {
   LOCAL_STORAGE_KEY_FOR_UNICODE,
   LOCAL_STORAGE_KEY_FOR_SPLIT_VIEW,
   LOCAL_STORAGE_KEY_FOR_FONT_SIZE,
-  LOCAL_STORAGE_KEY_FOR_LINE_HEIGHT,
   LOCAL_STORAGE_KEY_FOR_FONT_FAMILY,
   LOCAL_STORAGE_KEY_FOR_DARK_MODE,
   LOCAL_STORAGE_KEY_FOR_VISRAAMS,
@@ -21,7 +20,6 @@ import {
   DEFAULT_UNICODE,
   DEFAULT_SPLIT_VIEW,
   DEFAULT_FONT_SIZE,
-  DEFAULT_LINE_HEIGHT,
   DEFAULT_FONT_FAMILY,
   DEFAULT_DARK_MODE,
   DEFAULT_VISRAAMS,
@@ -41,7 +39,8 @@ import thunk from 'redux-thunk';
 
 const initialState = {
   online: window !== undefined ? window.navigator.onLine : true,
-  showAdvancedOptions: false,
+  showDisplayOptions: false,
+  showFontOptions: false,
   showTransliterationOptions: false,
   showTranslationOptions: false,
   translationLanguages: getArrayFromLocalStorage(
@@ -72,10 +71,6 @@ const initialState = {
     LOCAL_STORAGE_KEY_FOR_FONT_SIZE,
     DEFAULT_FONT_SIZE
   ),
-  lineHeight: getNumberFromLocalStorage(
-    LOCAL_STORAGE_KEY_FOR_LINE_HEIGHT,
-    DEFAULT_LINE_HEIGHT,
-  ),
   fontFamily: getStringFromLocalStorage(
     LOCAL_STORAGE_KEY_FOR_FONT_FAMILY,
     DEFAULT_FONT_FAMILY
@@ -92,6 +87,7 @@ const initialState = {
     LOCAL_STORAGE_KEY_FOR_VISRAAM_SOURCE,
     DEFAULT_VISRAAM_SOURCE
   ),
+
   visraamStyle: getStringFromLocalStorage(
     LOCAL_STORAGE_KEY_FOR_VISRAAMS_STYLE,
     DEFAULT_VISRAAM_STYLE

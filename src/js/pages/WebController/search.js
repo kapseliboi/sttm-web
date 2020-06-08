@@ -20,19 +20,25 @@ import {
 } from '@/util/api/shabad';
 
 export default class ControllerSearch extends React.PureComponent {
+  static defaultProps = {
+    offset: 0,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
-      offset: props.searchData.offset || 0,
+      offset: props.offset,
       shabadId: null,
       verseId: null,
-      homeId: null,
       openShabad: false,
     }
   }
 
   static propTypes = {
-    searchData: PropTypes.object,
+    q: PropTypes.string.isRequired,
+    type: PropTypes.number,
+    source: PropTypes.string,
+    offset: PropTypes.number,
     socket: PropTypes.object,
     controllerPin: PropTypes.number,
   };
@@ -56,54 +62,28 @@ export default class ControllerSearch extends React.PureComponent {
     this.setState({ verseId, shabadId, openShabad: true });
   }
 
-  componentDidMount() {
-    const { searchData } = this.props;
-    if (!searchData.verseChange && searchData.id) {
-      this.setState({
-        openShabad: true,
-        shabadId: searchData.id,
-        verseId: searchData.highlight,
-        homeId: searchData.homeId
-      });
-    }
-  }
-
   componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
-      const { searchData } = this.props;
-      if (!searchData.verseChange && searchData.id) {
-        this.setState({
-          openShabad: true,
-          shabadId: searchData.id,
-          verseId: searchData.highlight,
-          homeId: searchData.homeId
-        });
-      } else {
-        this.setState({ openShabad: false, shabadId: null, verseId: null, homeId: null });
-      }
+      this.setState({ openShabad: false, shabadId: null, verseId: null });
     }
   }
 
   render() {
-    const { offset, shabadId } = this.state;
-    const { searchData } = this.props;
-    let url;
+    const { q, type, source } = this.props;
+    const { offset } = this.state;
 
-    if (shabadId || searchData.id) {
-      url = buildApiUrl({ id: this.state.shabadId || searchData.id, API_URL });
-    } else {
-      const { query, type, source } = searchData;
-      if (query === '') {
-        return (
-          <GenericError
-            title={TEXTS.EMPTY_QUERY}
-            description={TEXTS.EMPTY_QUERY_DESCRIPTION}
-            image={SachKaur}
-          />
-        );
-      }
-      url = encodeURI(buildApiUrl({ q: query, type, source, offset, API_URL }))
+    if (q === '') {
+      return (
+        <GenericError
+          title={TEXTS.EMPTY_QUERY}
+          description={TEXTS.EMPTY_QUERY_DESCRIPTION}
+          image={SachKaur}
+        />
+      );
     }
+
+    const url = this.state.openShabad ? buildApiUrl({ id: this.state.shabadId, API_URL })
+      : encodeURI(buildApiUrl({ q, type, source, offset, API_URL }));
 
     return (
       <PageLoader url={url}>
@@ -112,14 +92,13 @@ export default class ControllerSearch extends React.PureComponent {
 
           if (!this.state.openShabad && data.resultsInfo) {
             const { resultsInfo, verses } = data;
-            const { query, type } = this.props.searchData;
 
             const results = [];
 
             verses.map(shabad => {
               const highlightIndex = getHighlightIndices(
                 shabad.verse.gurmukhi,
-                query,
+                q,
                 type
               );
 
@@ -132,7 +111,7 @@ export default class ControllerSearch extends React.PureComponent {
                     enable={false}
                     unicode={false}
                     highlightIndex={highlightIndex}
-                    query={query}
+                    query={q}
                   >
                     {getUnicodeVerse(shabad)}
                   </Larivaar>
@@ -161,9 +140,7 @@ export default class ControllerSearch extends React.PureComponent {
               <ControllerShabad data={data}
                 socket={this.props.socket}
                 highlight={this.state.verseId}
-                homeId={this.state.homeId || this.state.verseId}
-                controllerPin={this.props.controllerPin}
-                resultType='shabad' />
+                controllerPin={this.props.controllerPin} />
             )
           }
         }}

@@ -1,16 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import cx from 'classnames';
-import ShabadControls from './ShabadControlsv2';
+import ShabadControls from './ShabadControls';
 import ShareButtons, { supportedMedia as _s } from './ShareButtons';
 import {
   setFontSize,
-  setLineHeight,
   setTranslationLanguages,
   setTransliterationLanguages,
   resetDisplayOptions,
   resetFontOptions,
-  toggleAdvancedOptions,
+  toggleDisplayOptions,
+  toggleFontOptions,
   toggleLarivaarAssistOption,
   toggleLarivaarOption,
   toggleTranslationOptions,
@@ -52,7 +52,7 @@ class Controls extends React.PureComponent {
       }
 
       const currentScroll = this.$wrapper.offsetTop;
-      const { showAdvancedOptions } = this.props;
+      const { showDisplayOptions, showFontOptions } = this.props;
       this.setState(prevState => {
         const { showControls, lastScrollPos } = prevState;
 
@@ -67,7 +67,8 @@ class Controls extends React.PureComponent {
         return {
           lastScrollPos: currentScroll,
           showControls: showControls &&
-            !showAdvancedOptions ?
+            !showDisplayOptions &&
+            !showFontOptions ?
             false :
             showControls
         };
@@ -90,16 +91,14 @@ class Controls extends React.PureComponent {
       'hide-controls': !showControls,
     });
     return (
-      <>
+      <div
+        id="controls-wrapper"
+        className={classNames}
+        ref={this.setRef}
+      >
         <ShareButtons {...this.props} />
-        <div
-          id="controls-wrapper"
-          className={classNames}
-          ref={this.setRef}
-        >
-          <ShabadControls {...this.props} />
-        </div>
-      </>
+        <ShabadControls {...this.props} />
+      </div>
     );
   }
 }
@@ -113,7 +112,8 @@ const dispatchToProps = {
   setTransliterationLanguages,
   resetDisplayOptions,
   resetFontOptions,
-  toggleAdvancedOptions,
+  toggleDisplayOptions,
+  toggleFontOptions,
   toggleLarivaarAssistOption,
   toggleLarivaarOption,
   toggleTranslationOptions,
@@ -121,7 +121,6 @@ const dispatchToProps = {
   toggleSplitViewOption,
   toggleDarkMode,
   toggleVisraams,
-  setLineHeight,
   setVisraamSource,
   setVisraamStyle,
   changeFont,

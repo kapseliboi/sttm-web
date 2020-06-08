@@ -29,10 +29,6 @@ export default class Translation extends React.PureComponent {
         );
       }
     },
-    fontSize: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]),
     children: PropTypes.string,
   };
 
@@ -47,23 +43,21 @@ export default class Translation extends React.PureComponent {
       : { children: translationMap[language](shabad) };
 
   render() {
-    const defaultFontSize = '18px';
-    const { type, unicode, text, fontSize: _fontSize } = this.props;
-    const fontSize = _fontSize ? (0.7 * _fontSize) + 'em' : defaultFontSize;
+    const { type, unicode, text } = this.props;
 
     if (type === PUNJABI) {
       return (
-        <blockquote style={{ fontSize }} className="translation punjabi gurbani-font">
+        <blockquote className="translation punjabi gurbani-font">
           {unicode ? (
             <div className="unicode">{text.unicode}</div>
           ) : (
-              <div className="gurlipi">{text.gurmukhi}</div>
-            )}
+            <div className="gurlipi">{text.gurmukhi}</div>
+          )}
         </blockquote>
       );
     } else {
       return (
-        <blockquote style={{ fontSize }} className={`translation ${type}`}>
+        <blockquote className={`translation ${type}`}>
           {this.props.children}
         </blockquote>
       );

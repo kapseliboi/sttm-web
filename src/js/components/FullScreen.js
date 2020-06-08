@@ -14,31 +14,20 @@ export default class FullScreen extends React.PureComponent {
     isFullScreen: false,
   }
 
-  $htmlNode = document.querySelector('html');
-
   handleClick = () => {
-    this.setState({ isFullScreen: !this.state.isFullScreen });
+    this.state.isFullScreen ?
+      document.exitFullscreen() :
+      document.querySelector('html').requestFullscreen();
   };
 
   handleFullScreen = () => {
-    this.setState({ isFullScreen: document.fullscreen || document.webkitIsFullScreen });
+    document.body.classList[document.fullscreen ? 'add' : 'remove']('fullscreen-view');
+    this.setState({ isFullScreen: document.fullscreen });
   }
 
   componentDidMount() {
-    this.setState({ isFullScreen: document.fullscreen || document.webkitIsFullScreen || false });
+    this.setState({ isFullScreen: document.fullscreen });
     document.addEventListener('fullscreenchange', this.handleFullScreen);
-  }
-
-  componentDidUpdate() {
-    const html = this.$htmlNode;
-    if (this.state.isFullScreen) {
-      document.body.classList['add']('fullscreen-view');
-      html.requestFullscreen && html.requestFullscreen();
-      html.webkitRequestFullscreen && html.webkitRequestFullscreen();
-    } else {
-      document.fullscreen && document.exitFullscreen();
-      document.body.classList['remove']('fullscreen-view');
-    }
   }
 
   componentWillUnmount() {

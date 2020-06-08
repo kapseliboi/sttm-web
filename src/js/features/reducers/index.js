@@ -1,5 +1,6 @@
 import {
-  TOGGLE_ADVANCED_OPTIONS,
+  TOGGLE_DISPLAY_OPTIONS,
+  TOGGLE_FONT_OPTIONS,
   TOGGLE_TRANSLATION_OPTIONS,
   TOGGLE_TRANSLITERATION_OPTIONS,
   TOGGLE_LARIVAAR_ASSIST_OPTION,
@@ -12,7 +13,6 @@ import {
   SET_CENTER_ALIGN_OPTION,
   SET_UNICODE,
   SET_FONT_SIZE,
-  SET_LINE_HEIGHT,
   SET_TRANSLATION_LANGUAGES,
   SET_TRANSLITERATION_LANGUAGES,
   SET_ONLINE_MODE,
@@ -31,7 +31,6 @@ import {
   LOCAL_STORAGE_KEY_FOR_VISRAAM_SOURCE,
   LOCAL_STORAGE_KEY_FOR_VISRAAMS_STYLE,
   LOCAL_STORAGE_KEY_FOR_FONT_SIZE,
-  LOCAL_STORAGE_KEY_FOR_LINE_HEIGHT,
   LOCAL_STORAGE_KEY_FOR_FONT_FAMILY,
   LOCAL_STORAGE_KEY_FOR_TRANSLATION_LANGUAGES,
   LOCAL_STORAGE_KEY_FOR_TRANSLITERATION_LANGUAGES,
@@ -71,15 +70,26 @@ export default function reducer(state, action) {
         showTranslationOptions,
       };
     }
-    case TOGGLE_ADVANCED_OPTIONS: {
-      const showAdvancedOptions = !state.showAdvancedOptions;
+    case TOGGLE_DISPLAY_OPTIONS: {
+      const showDisplayOptions = !state.showDisplayOptions;
       clickEvent({
-        action: TOGGLE_ADVANCED_OPTIONS,
-        label: showAdvancedOptions ? 1 : 0,
+        action: TOGGLE_DISPLAY_OPTIONS,
+        label: showDisplayOptions ? 1 : 0,
       });
       return {
         ...state,
-        showAdvancedOptions,
+        showDisplayOptions,
+      };
+    }
+    case TOGGLE_FONT_OPTIONS: {
+      const showFontOptions = !state.showFontOptions;
+      clickEvent({
+        action: TOGGLE_FONT_OPTIONS,
+        label: showFontOptions ? 1 : 0,
+      });
+      return {
+        ...state,
+        showFontOptions,
       };
     }
     case TOGGLE_DARK_MODE: {
@@ -189,17 +199,6 @@ export default function reducer(state, action) {
       return {
         ...state,
         fontSize,
-      };
-    }
-    case SET_LINE_HEIGHT: {
-      const lineHeight = parseFloat(action.payload, 10);
-
-      if (lineHeight === state.lineHeight) return state;
-
-      saveToLocalStorage(LOCAL_STORAGE_KEY_FOR_LINE_HEIGHT, action.payload);
-      return {
-        ...state,
-        lineHeight,
       };
     }
     case CHANGE_FONT: {

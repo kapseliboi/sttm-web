@@ -2,13 +2,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import { SOURCES, SEARCH_TYPES, TYPES, SOURCES_WITH_ANG, MAX_ANGS } from '../../constants';
-import { toSearchURL, getShabadList } from '../../util';
+import { SOURCES, SEARCH_TYPES, TYPES, SOURCES_WITH_ANG } from '../../constants';
+import { toSearchURL, getShabadList, dateMath } from '../../util';
 import { pageView } from '../../util/analytics';
 import EnhancedGurmukhiKeyboard from '../../components/GurmukhiKeyboardv2';
 import SehajPaathLink from '../../components/SehajPaathLink';
-import { BaaniLinks } from '../../components/BaaniLinks/';
 import SearchForm from '../../components/SearchForm';
 import Logo from '../../components/Icons/Logo';
 import CrossIcon from '../../components/Icons/Times';
@@ -118,8 +116,6 @@ export default class Home extends React.PureComponent {
                         placeholder={placeholder}
                         title={title}
                         pattern={pattern}
-                        min={name === 'ang' ? 1 : undefined}
-                        max={name === 'ang' ? MAX_ANGS[source] : undefined}
                       />
                       <button
                         type="button"
@@ -203,7 +199,6 @@ export default class Home extends React.PureComponent {
                       </div>
                     </div>
                     <SehajPaathLink />
-                    <BaaniLinks />
                   </form>
                 </div>
               </div>

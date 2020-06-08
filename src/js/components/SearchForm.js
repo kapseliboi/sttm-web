@@ -171,7 +171,7 @@ export default class SearchForm extends React.PureComponent {
           : ['Enter 2 characters minimum.', '.{2,}'];
 
     const [action, name, inputType] = SearchForm.getFormDetails(
-      typeInt
+      this.state.type
     );
 
     return this.props.children({

@@ -9,35 +9,29 @@ export default class ControllerShabad extends React.PureComponent {
     this.state = {
       connected: false,
       namespaceString: '',
-      error: null
+      error: null,
     }
   }
 
   static propTypes = {
     data: PropTypes.object,
     highlight: PropTypes.number,
-    homeId: PropTypes.number,
     socket: PropTypes.object,
     controllerPin: PropTypes.number,
-    resultType: PropTypes.string,
   };
 
   handlePanktiClick = (verseId, shabadId) => {
-    const isItCeremony = this.props.data.ceremonyInfo;
-    const isItBani = this.props.data.baniInfo;
     this.props.socket.emit('data', {
       host: "sttm-web",
-      type: this.props.resultType,
+      type: "shabad",
       pin: this.props.controllerPin,
-      ceremonyId: isItCeremony ? isItCeremony.ceremonyID : null,
-      baniId: isItBani ? isItBani.baniID : null,
       shabadId,
       verseId,
     });
   }
 
   render() {
-    const { socket, data, homeId, highlight } = this.props;
+    const { data, highlight } = this.props;
     return (
       <div id="shabad" className="controller-shabad shabad display">
         <div className="shabad-container">
@@ -45,7 +39,6 @@ export default class ControllerShabad extends React.PureComponent {
             type="shabad"
             gurbani={data.verses}
             highlight={highlight}
-            homeId={homeId}
             splitView={false}
             unicode={false}
             larivaar={false}
@@ -56,7 +49,6 @@ export default class ControllerShabad extends React.PureComponent {
             transliterationLanguages={[]}
             centerAlignGurbani={true}
             onPanktiClick={this.handlePanktiClick}
-            socket={socket}
           />
         </div>
       </div>

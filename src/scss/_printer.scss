@@ -22,7 +22,6 @@
   #responsive-menu,
   #search-options,
   #controls-wrapper,
-  #share-menu,
   footer,
   .breadcrumb,
   .shabad-nav,
@@ -62,10 +61,6 @@
     &::after {
       content: '';
     }
-  }
-
-  #freshworks-container {
-    display: none;
   }
 
   @page {
