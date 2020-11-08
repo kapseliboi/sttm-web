@@ -11,7 +11,4 @@ module.exports = {
   testPathIgnorePatterns: ['<rootDir>/cypress'],
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
-  setupFiles: [
-    "<rootDir>/jest/setupTest.js"
-  ]
 };

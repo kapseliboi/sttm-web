@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import ReactTooltip from 'react-tooltip';
 import { useDispatch } from 'react-redux';
+import { isMobile } from 'react-device-detect';
 
 import { IMahankoshExplaination } from '@/types';
 import { useFetchData } from '@/hooks';
@@ -43,7 +44,7 @@ export const MahankoshTooltip: React.FC<IMahankoshTooltipProps> = ({
   }, [])
 
 
-    if (isFetchingMahankoshExplaination || !isMahankoshExplainationExists || !gurbaniWord) {
+    if (isFetchingMahankoshExplaination || !isMahankoshExplainationExists) {
       return null;
     }
 
@@ -59,7 +60,6 @@ export const MahankoshTooltip: React.FC<IMahankoshTooltipProps> = ({
         dispatch({ type: SET_MAHANKOSH_TOOLTIP_EXPLAINATION, payload: false })
         dispatch({ type: SET_MAHANKOSH_TOOLTIP_ACTIVE, payload: false })
         clearMahankoshInformation()
-        ReactTooltip.rebuild()
       }}
       className="mahankoshTooltipWrapper"
       place="top"

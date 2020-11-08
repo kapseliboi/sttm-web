@@ -5,7 +5,6 @@ describe('Navigation', () => {
   const sttmLarivaarAssistColor = 'rgb(243, 156, 29)';
   const sundarGutkaBaanis = 104;
   const searchString = 'jaa';
-  const banisURL = Cypress.env().BANIS_URL;
 
   describe('Sundar-Gutka page', () => {
     beforeEach(() => {
@@ -53,7 +52,7 @@ describe('Navigation', () => {
     it('should generate user friendly url', () => {
       cy.server();
 
-      cy.route({ method: "GET", url: banisURL })
+      cy.route({ method: "GET", url: 'http://api.khajana.org/v2/banis' })
         .as('sgBaanis')
 
       cy.wait('@sgBaanis').then(baanis => {
