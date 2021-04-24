@@ -12,7 +12,7 @@ import ClipboardIcon from './Icons/Clipboard';
 import PrinterIcon from './Icons/Printer';
 import KeyboardIcon from './Icons/Keyboard';
 import { GearsIcon } from './Icons/CustomIcons';
-import ShowKeyBoardShortcuts from '../components/ShowKeyBoardShortcuts';
+import ShowKeyBoardShortcuts from '@/components/ShowKeyBoardShortcuts';
 
 const handleWhatsapp = () => {
   clickEvent({ action: ACTIONS.SHARE, label: 'whatsapp' });
@@ -38,6 +38,13 @@ const copyShortUrl = () =>
 export const supportedMedia = ['settings', 'print', 'copyAll', 'embed', 'whatsapp', 'copy', 'shortcuts'];
 
 class ShareButtons extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showKeyboardShortcuts: false,
+    }
+  }
   static defaultProps = {
     media: ['whatsapp', 'copy'],
   };
@@ -48,7 +55,6 @@ class ShareButtons extends React.PureComponent {
     onEmbedClick: PropTypes.func,
     onCopyAllClick: PropTypes.func,
     toggleSettingsPanel: PropTypes.func,
-    toggleKeyboardShortcuts: PropTypes.func,
     settingIdRef: PropTypes.object
   };
 
@@ -64,10 +70,14 @@ class ShareButtons extends React.PureComponent {
     });
   };
 
-  render() {
-    const { media, onEmbedClick, onCopyAllClick, toggleSettingsPanel, toggleKeyboardShortcuts, settingIdRef } = this.props;
+  toggleKeyboardShortcuts = () => {
+    this.setState({
+      showKeyboardShortcuts: !this.state.showKeyboardShortcuts,
+    })
+  }
 
-    console.log(toggleKeyboardShortcuts);
+  render() {
+    const { media, onEmbedClick, onCopyAllClick, toggleSettingsPanel, settingIdRef } = this.props;
 
     if (media.length === 0) {
       return null;
@@ -131,10 +141,11 @@ class ShareButtons extends React.PureComponent {
       ),
       shortcuts: (
         <li key={6}>
-          <button id="keyboard-icon" onClick={toggleKeyboardShortcuts}>
+          <button id="keyboard-icon" onClick={this.toggleKeyboardShortcuts}>
             <KeyboardIcon />
             <span className="sr-only">Keyboard Shortcuts</span>
           </button>
+          <ShowKeyBoardShortcuts isOpen={this.state.showKeyboardShortcuts} close={() => { this.setState({ showKeyboardShortcuts: false }) }} />
         </li>
       ),
     };

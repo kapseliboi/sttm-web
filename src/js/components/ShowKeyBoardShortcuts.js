@@ -1,61 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Modal from 'react-modal';
 
-
-export default class ShowKeyBoardShortcuts extends React.PureComponent {
-
-    return(
-        <React.Fragment>
-    )
+const ShowKeyBoardShortcuts = ({ isOpen, close }) => {
+  return (
+    <Modal
+      isOpen={isOpen}
+      contentLabel="Example Modal"
+    >
+      <button onClick={close}>close</button>
+    </Modal>
+  )
 }
 
-
-const Main = () => {
-    const [showKeyBoardShortcuts, setShowKeyBoardShortcuts] = useState(false)
-
-    return (
-        <div>
-            <button onClick={() => setShowKeyBoardShortcuts(true)}>x</button>
-
-            {
-                showKeyBoardShortcuts &&
-                <Modal onClose={() => setShowKeyBoardShortcuts(false)}>
-                    {
-                        closeModal =>
-                            <div>
-                                <input />
-                                <button onClick={closeModal}>
-                                    Close
-                                </button>
-                            </div>
-                    }
-                </Modal>
-            }
-        </div>
-    )
+ShowKeyBoardShortcuts.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  close: PropTypes.func.isRequired,
 }
 
-const Modal = props => {
-    const [container, setContainer] = useState();
-
-    useEffect(() => {
-        const container = document.createElement("div");
-        setContainer(container);
-        document.appendChild(container);
-    }, []);
-
-    return (
-        React.createPortal(
-            <div style={{ position: "fixed", height: "100%", width: "100%", zIndex: 1000 }}
-                onClick={props.onClose}>
-                <div onClick={e => e.stopPropogation()}>
-                    {props.children(props.onClose)}
-                </div>
-            </div>,
-            container,
-        )
-    )
-}
-
-
-
+export default ShowKeyBoardShortcuts;
