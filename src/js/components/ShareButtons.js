@@ -10,7 +10,9 @@ import CopyAllIcon from './Icons/CopyAll';
 import WhatsAppIcon from './Icons/WhatsApp';
 import ClipboardIcon from './Icons/Clipboard';
 import PrinterIcon from './Icons/Printer';
+import KeyboardIcon from './Icons/Keyboard';
 import { GearsIcon } from './Icons/CustomIcons';
+import ShowKeyBoardShortcuts from '../components/ShowKeyBoardShortcuts';
 
 const handleWhatsapp = () => {
   clickEvent({ action: ACTIONS.SHARE, label: 'whatsapp' });
@@ -33,7 +35,7 @@ const copyShortUrl = () =>
     )
     .catch(() => showToast(TEXTS.COPY_FAILURE));
 
-export const supportedMedia = ['settings', 'print', 'copyAll', 'embed', 'whatsapp', 'copy'];
+export const supportedMedia = ['settings', 'print', 'copyAll', 'embed', 'whatsapp', 'copy', 'shortcuts'];
 
 class ShareButtons extends React.PureComponent {
   static defaultProps = {
@@ -46,6 +48,7 @@ class ShareButtons extends React.PureComponent {
     onEmbedClick: PropTypes.func,
     onCopyAllClick: PropTypes.func,
     toggleSettingsPanel: PropTypes.func,
+    toggleKeyboardShortcuts: PropTypes.func,
     settingIdRef: PropTypes.object
   };
 
@@ -62,7 +65,9 @@ class ShareButtons extends React.PureComponent {
   };
 
   render() {
-    const { media, onEmbedClick, onCopyAllClick, toggleSettingsPanel, settingIdRef } = this.props;
+    const { media, onEmbedClick, onCopyAllClick, toggleSettingsPanel, toggleKeyboardShortcuts, settingIdRef } = this.props;
+
+    console.log(toggleKeyboardShortcuts);
 
     if (media.length === 0) {
       return null;
@@ -121,6 +126,14 @@ class ShareButtons extends React.PureComponent {
           <button id="settings-icon" ref={settingIdRef} onClick={toggleSettingsPanel}>
             <GearsIcon />
             <span className="show-on-desktop settings-text-desktop">Settings</span>
+          </button>
+        </li>
+      ),
+      shortcuts: (
+        <li key={6}>
+          <button id="keyboard-icon" onClick={toggleKeyboardShortcuts}>
+            <KeyboardIcon />
+            <span className="sr-only">Keyboard Shortcuts</span>
           </button>
         </li>
       ),

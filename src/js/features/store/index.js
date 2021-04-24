@@ -156,6 +156,7 @@ const initialState = {
   isMahankoshTooltipExplaination: false,
   prefetchAng: undefined,
   showSettingsPanel: false,
+  showKeyBoardShortcuts: false,
 };
 
 

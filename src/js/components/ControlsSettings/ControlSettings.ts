@@ -15,10 +15,10 @@ import {
   isShowSehajPaathModeRoute,
 } from '@/util';
 
-import {  
+import {
   PlusIcon,
   MinusIcon,
-  SizeControl,  
+  SizeControl,
 } from '@/components/Icons/CustomIcons';
 
 export interface ISettingActions {
@@ -141,7 +141,7 @@ export const QUICK_SETTINGS = ({
           action: toggleCenterAlignOption
         },
       ]
-    },  
+    },
     {
       type: 'two-columns',
       label: '',
@@ -180,19 +180,19 @@ export const QUICK_SETTINGS = ({
           }
         },
       ]
-    },  
-     isSundarGutkaRoute ? {
+    },
+    isSundarGutkaRoute ? {
       type: 'label-options-custom',
       label: 'Baanis Length',
       checked: true,
-      collections:         
-        SG_BAANIS.map(({name: lengthName, length, value: lengthValue}) => (
+      collections:
+        SG_BAANIS.map(({ name: lengthName, length, value: lengthValue }) => (
           {
             label: lengthName,
             options: lengthValue,
             checked: length === sgBaaniLength,
-            action: (selectedSgBaaniValue: string) => {              
-              const {length: selectedLength} = SG_BAANIS.find(({ value }) => value === parseInt(selectedSgBaaniValue))
+            action: (selectedSgBaaniValue: string) => {
+              const { length: selectedLength } = SG_BAANIS.find(({ value }) => value === parseInt(selectedSgBaaniValue))
               setSgBaaniLength(selectedLength ? selectedLength : DEFAULT_SG_BAANI_LENGTH);
             },
           }
@@ -203,7 +203,7 @@ export const QUICK_SETTINGS = ({
       label: "Paragraph",
       checked: paragraphMode,
       action: toggleParagraphMode
-    } : {},   
+    } : {},
     {
       type: 'toggle-option',
       label: 'Dark Mode',
@@ -234,7 +234,7 @@ export const QUICK_SETTINGS = ({
       label: 'Split',
       checked: splitView,
       action: toggleSplitViewOption,
-    },          
+    },
     {
       type: 'collapsible_item',
       label: TEXTS.TRANSLITERATION,

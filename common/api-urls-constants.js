@@ -12,6 +12,6 @@ module.exports = {
     LOCAL: '//stgapi.sikhitothemax.org/',
   },
   CEREMONIES: '//api.sikhitothemax.org/ceremonies/',
-  DOODLE: '//api.sikhitothemax.org/doodle/',
+  DOODLE: '//stgapi.sikhitothemax.org/doodle/',
   WRITERS: '//api.banidb.com/v2/writers/'
 };
