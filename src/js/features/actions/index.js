@@ -37,9 +37,6 @@ export const toggleAdvancedOptions = createAction(TOGGLE_ADVANCED_OPTIONS);
 export const TOGGLE_SETTINGS_PANEL = 'TOGGLE_SETTINGS_PANEL';
 export const toggleSettingsPanel = createAction(TOGGLE_SETTINGS_PANEL);
 
-export const TOGGLE_KEYBOARD_SHORTCUTS = 'TOGGLE_KEYBOARD_SHORTCUTS';
-export const toggleKeyboardShortcuts = createAction(TOGGLE_KEYBOARD_SHORTCUTS);
-
 export const SET_SETTINGS_PANEL = 'SET_SETTINGS_PANEL';
 export const setSettingsPanel = createAction(SET_SETTINGS_PANEL);
 

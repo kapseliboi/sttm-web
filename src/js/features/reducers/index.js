@@ -11,7 +11,6 @@ import {
   TOGGLE_VISRAAMS,
   TOGGLE_SEHAJ_PAATH_MODE,
   TOGGLE_SETTINGS_PANEL,
-  TOGGLE_KEYBOARD_SHORTCUTS,
   SET_SETTINGS_PANEL,
   SET_MAHANKOSH_TOOLTIP_EXPLAINATION,
   SET_MAHANKOSH_TOOLTIP_ACTIVE,
@@ -157,18 +156,6 @@ export default function reducer(state, action) {
       return {
         ...state,
         showSettingsPanel,
-      };
-    }
-
-    case TOGGLE_KEYBOARD_SHORTCUTS: {
-      const showKeyBoardShortcuts = !state.showKeyBoardShortcuts;
-      clickEvent({
-        action: TOGGLE_KEYBOARD_SHORTCUTS,
-        label: showKeyBoardShortcuts ? 1 : 0,
-      });
-      return {
-        ...state,
-        showKeyBoardShortcuts,
       };
     }
 
